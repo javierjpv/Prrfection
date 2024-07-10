@@ -10,7 +10,7 @@ export const Carrito = () => {
 
   return (
     <>
-      <h1 className="text-center">Carrito</h1>
+      <h1 className="text-center">Mi cesta</h1>
       
       {/* Al componente CarritoList se le pasa como argumento el carrito, el cual es un array de objetos */}
       {<CarritoList carrito={carrito}/>}

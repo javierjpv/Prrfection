@@ -50,7 +50,7 @@ export const Gatos = () => {
   return (
     <>
       <h1 className="text-center" >Gatos</h1>
-<div className="bg-light" style={{ height: "200px"}}>
+<div className="mb-4 bg-light rounded" style={{ height: ""}}>
 <ComponenteNuevo clave='categoria'/>
       <ComponenteNuevo clave='marca'/>
       {/* <FiltroComponent clave="categoria" valores={[1, 2, 3, 4]} />

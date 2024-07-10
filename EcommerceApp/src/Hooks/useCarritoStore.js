@@ -9,6 +9,7 @@ export const useCarritoStore = () => {
 //Aqui se esta obteniendo el estado global del carrito y el dispacth para poder usar sus funciones
 
 const {products}=useSelector(state=>state.carrito)
+const {total}=useSelector(state=>state.carrito)
 const carrito=products
 const dispatch=useDispatch();
 
@@ -44,6 +45,7 @@ const confirmCart=(carrito)=>{
 //se retornan las funciones y las propiedades relacionadas con el carrito
 return {
     carrito,
+    total,
     addProductCart,deleteProductCart,confirmCart,
 }
 

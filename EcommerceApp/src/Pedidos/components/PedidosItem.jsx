@@ -5,7 +5,7 @@ import React from 'react';
 //Cada objeto pedido que previamente ha sido enviado como prop, se recibe y extraemos de el lo que necesitamso
 export const PedidosItem = ({ pedido }) => {
   return (
-    <div className="card mb-3">
+    <div className="card  bg-light mb-3">
       <div className="card-body">
         <h5 className="card-title">Pedido</h5>
         <p className="card-text">ID del pedido: {pedido.id}</p>

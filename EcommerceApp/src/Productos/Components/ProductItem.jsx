@@ -31,8 +31,8 @@ export const ProductItem = ({product}) => {
 
   console.log(`el producto:${product.id} se renderiza`)  
   return (
-    <div className="card h-100">
-      <div className="card-body d-flex flex-column justify-content-between">
+    <div className="card h-100 bg-light" style={{ color: '#333333'}}>
+      <div className="card-body d-flex flex-column justify-content-between ">
         <h5 className="card-title">{product.nombre}</h5>
         
         <div className="col-md-5">
@@ -52,7 +52,8 @@ export const ProductItem = ({product}) => {
         <div>
           <button disabled={product.stock<=0}
             onClick={handleAddCart}
-            className="btn btn-outline-danger mr-2"
+            className="btn btn-primary text-white mr-2"
+            
           >
             Añadir al carrito
           </button>

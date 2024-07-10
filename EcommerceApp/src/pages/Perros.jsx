@@ -49,7 +49,7 @@ export const Perros = () => {
 
       <h1 className="text-center">Perros</h1>
 
-      <div className="bg-light" style={{ height: "200px"}} >
+      <div className="bg-light rounded mb-4" style={{ height: ""}} >
       <ComponenteNuevo clave='categoria'/>
       <ComponenteNuevo clave='marca'/>
       {/* <FiltroComponent clave="categoria" valores={[1, 2, 3, 4]} />

@@ -7,6 +7,7 @@ export const carritoSlice = createSlice({
     error:{},
     isLoadingCarrito: false,
     products: [],
+    total:0,
   },
   reducers: {
     //Funcion para agregar nuevos productos al carrito
@@ -27,11 +28,11 @@ export const carritoSlice = createSlice({
           }
         });
       }
+      state.total= state.total+1
+
     },
     //Funcion para eliminar un producto del carrito
     onDeleteProduct: (state, action) => {
-
-
       state.products = state.products.map((product) => {
         //El producto se pasara en forma de objeto a traves del paytload
         //Se restara un producto si ya existe en el carrito, es decir se restara su propiedad cantidad
@@ -49,7 +50,7 @@ export const carritoSlice = createSlice({
           return product;
         }
       });
-       
+      state.total= state.total-1
    
     },
     //Esta funcion dejara el carrito vacio,se usara en la carpeta hooks tras haber realizado una llamada al backend en la cual se confirmara el pedido

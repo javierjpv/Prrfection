@@ -16,11 +16,14 @@ import { SuccessPage } from "../checkout/pages/SuccessPage";
 import { Gatos } from "../pages/Gatos";
 import { Perros } from "../pages/Perros";
 import { ErrorPage } from "../checkout/pages/ErrorPage";
-
+import { MdOutlineShoppingCart } from "react-icons/md";
+import { useCarritoStore } from "../Hooks/useCarritoStore";
+import { FaCat } from "react-icons/fa";
 
 export const Navbar = () => {
   const { user, startLogout } = useAuthStore();
   const { startClearingPedidos } = usePedidosStore();
+  const {total,carrito}=useCarritoStore();
 
   const handleStartLogout = () => {
     localStorage.removeItem("token");
@@ -31,9 +34,14 @@ export const Navbar = () => {
 
   return (
     <>
-      <h1 className="text-center">Navbar</h1>
+<div className="mt-5 mb-3"> 
+<div className="text-center mb-4">
+<FaCat size={30} color="#000000"/>
+<h1 className="text-primary">Prrfection</h1>
+</div>
+  
 
-      <ul className="nav justify-content-center">
+<ul className="d-flex flex-column align-items-center flex-md-row nav justify-content-center">
         <li className="nav-item">
           <Link className="nav-link" to="/">
             Inicio
@@ -41,7 +49,7 @@ export const Navbar = () => {
         </li>
         <li className="nav-item">
           <Link className="nav-link" to="/carrito">
-            Carrito
+          <MdOutlineShoppingCart/><span className="bg-primary text-white rounded-circle">{total}</span> Mi cesta
           </Link>
         </li>
 
@@ -97,6 +105,9 @@ export const Navbar = () => {
           </li>
         </ul>
       </div>
+</div>
+
+
 
       <Routes>
         {/* Solo se debe acceder a esta ruta sin no estas registrado ya que es el login */}

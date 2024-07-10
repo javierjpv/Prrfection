@@ -21,7 +21,7 @@ export const Home = () => {
 
   return (
     <>
-      <h1 className="text-center">HomePage</h1>
+      <h1 className="text-center mb-2">Todos los productos</h1>
       <ProductList products={products} />
     </>
   );

@@ -62,7 +62,7 @@ export const ProductCard = ({ product }) => {
           </p>
         </div>
 
-        <button disabled={product.stock<=0}  className="btn btn-outline-danger" onClick={handleAddCart}>
+        <button disabled={product.stock<=0}  className="btn btn-primary" onClick={handleAddCart}>
           Añadir al Carrito
         </button>
         {/* <button className='btn btn-outline-secondary' onClick={handleDeleteCart}>Eliminar del carrito</button>

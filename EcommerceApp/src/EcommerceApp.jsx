@@ -9,10 +9,10 @@ export const EcommerceApp = () => {
       
     <Navbar/>
 
-    
-    <Footer/>
 
     </div>
+    
+    <Footer/>
 
     </>
   )
