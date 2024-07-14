@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ComentariosRepository;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Serializer\Annotation\Ignore;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ComentariosRepository::class)]
@@ -15,6 +16,7 @@ class Comentarios
     private ?int $id = null;
 
     #[ORM\ManyToOne]
+    #[Ignore]
     private ?Productos $producto = null;
 
     #[ORM\ManyToOne]

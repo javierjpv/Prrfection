@@ -7,8 +7,7 @@ import { fetchProductosByFiltros } from "../Filtros/helpers/fetchProductosByFilt
 import { useFiltrossStore } from "../Hooks/useFiltrosStore";
 
 export const Home = () => {
-  console.log("Estas en el INICIO");
-  const { products, startLoadingProducts, startSettingProducts } =
+  const { products, startLoadingProducts} =
     useProductosStore();
 
 
@@ -21,7 +20,7 @@ export const Home = () => {
 
   return (
     <>
-      <h1 className="text-center mb-2">Todos los productos</h1>
+      <h5 className="text-center mb-2">Todos los productos</h5>
       <ProductList products={products} />
     </>
   );

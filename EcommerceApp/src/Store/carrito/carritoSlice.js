@@ -56,10 +56,15 @@ export const carritoSlice = createSlice({
     //Esta funcion dejara el carrito vacio,se usara en la carpeta hooks tras haber realizado una llamada al backend en la cual se confirmara el pedido
     onConfirmCart:(state)=>{
       state.products=[]
-    }
+      state.total= 0
+    },
     
+    onResetCart:(state)=>{
+      state.products=[]
+      state.total= 0
+    },
   },
 });
 
-export const { onAddNewProduct, onDeleteProduct,onConfirmCart} = carritoSlice.actions;
+export const { onAddNewProduct, onDeleteProduct,onConfirmCart,onResetCart} = carritoSlice.actions;
 export default carritoSlice.reducer;

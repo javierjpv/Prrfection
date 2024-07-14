@@ -1,21 +1,62 @@
-import React from 'react'
-import { useParams } from 'react-router-dom'
-import { getProductById } from '../Helpers/getProductById'
-import { ProductCard } from '../Components/ProductCard'
-
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getProductById } from "../Helpers/getProductById";
+import { ProductCard } from "../Components/ProductCard";
+import { useCommentsStore } from "../../Hooks/useCommentsStore";
+import { CommentList } from "../../Comentarios/Components/CommentList";
+import { CommentNewForm } from "../../Comentarios/Components/CommentNewForm";
+import { useAuthStore } from "../../Hooks/useAuthStore";
 //pagina donde se muestran los productos dependiendo de su para bmetro id
 
 export const ProductPage = () => {
+  const { productId } = useParams();
+  const product = getProductById(productId);
+  const [commentTogle, setcommentTogle] = useState(false);
+  const { startLoadingComments, isLoadingComments } =
+    useCommentsStore();
+  useEffect(() => {
+    startLoadingComments(productId);
+    console.log("SE LLAMA A LA API PARA CARGAR LOS COMENTARIOS");
+  }, []);
+  const handleCloseComment = () => {
+    setcommentTogle(false);
+  };
 
-  const {productId}=useParams()
-  const product=getProductById(productId)
+  const {user}=useAuthStore();
   return (
     <>
-    ProductPage
-    <ProductCard product={product}/>
-    
-    
-    
+      <div className="d-flex justify-content-center">
+        <ProductCard product={product} />
+      </div>
+      {isLoadingComments ? (
+        <div className="spinner-grow" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      ) : (
+        <>
+          {user.userState === "AUTHENTICATED" && (
+            <button
+              onClick={() => {
+                setcommentTogle(true);
+              }}
+              className="btn btn-secondary"
+            >
+              Añadir Comentario
+            </button>
+          )}
+
+          {commentTogle ? (
+            <CommentNewForm
+              handleCloseComment={handleCloseComment}
+              productId={productId}
+            />
+          ) : (
+            ""
+          )}
+
+          <CommentList />
+        </>
+      )}
     </>
-  )
-}
+  );
+};

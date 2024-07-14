@@ -1,10 +1,9 @@
-
 import { ProductItem } from './ProductItem';
-
+import React from "react";
 
 
 //Recibimos comop prop un array con objetos products y se recorre con un map
-export const ProductList = ({products}) => {
+export const ProductList = React.memo(({products}) => {
 
   
 
@@ -21,4 +20,4 @@ export const ProductList = ({products}) => {
       ))}
     </div>
   );
-}
+})

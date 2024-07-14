@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import { Home } from "../pages/Home";
 import { About } from "../pages/About";
 import { Contact } from "../pages/Contact";
@@ -19,106 +19,114 @@ import { ErrorPage } from "../checkout/pages/ErrorPage";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { useCarritoStore } from "../Hooks/useCarritoStore";
 import { FaCat } from "react-icons/fa";
+import { BsList } from "react-icons/bs";
+import { FaUser } from "react-icons/fa";
 
 export const Navbar = () => {
   const { user, startLogout } = useAuthStore();
   const { startClearingPedidos } = usePedidosStore();
-  const {total,carrito}=useCarritoStore();
+  const { total } = useCarritoStore();
+
+  const navigate = useNavigate();
+
+  const handleReturnToStart = (e) => {
+    e.preventDefault();
+    navigate("/");
+  };
 
   const handleStartLogout = () => {
     localStorage.removeItem("token");
     startLogout();
     startClearingPedidos();
-   
   };
 
   return (
     <>
-<div className="mt-5 mb-3"> 
-<div className="text-center mb-4">
-<FaCat size={30} color="#000000"/>
-<h1 className="text-primary">Prrfection</h1>
-</div>
-  
+     <nav className="navbar fixed-top navbar-light bg-light pt-0">
+      <div className="d-flex flex-row justify-content-between align-items-center w-100">
 
-<ul className="d-flex flex-column align-items-center flex-md-row nav justify-content-center">
-        <li className="nav-item">
-          <Link className="nav-link" to="/">
-            Inicio
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link className="nav-link" to="/carrito">
-          <MdOutlineShoppingCart/><span className="bg-primary text-white rounded-circle">{total}</span> Mi cesta
-          </Link>
-        </li>
+        <div className="dropdown text-center">
+          <button
+            className="btn btn-secondary dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <BsList size={17} />
+          </button>
+          <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <li className="nav-item">
+              <Link className="dropdown-item" to="/gatos">
+                Gatos
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="dropdown-item" to="/perros">
+                Perros
+              </Link>
+            </li>
+          </ul>
+        </div>
 
-        {user.userState !== "AUTHENTICATED" && (
+        <ul className="d-flex align-items-center flex-row nav">
           <li className="nav-item">
-            <Link className="nav-link" to="/auth">
-              Auth
+            <Link className="nav-link text-dark" to="/">
+              Inicio
             </Link>
           </li>
-        )}
 
-        {user.userState === "AUTHENTICATED" && (
-          <li className="nav-item">
-            <Link className="nav-link" to="/pedidos">
-              Pedidos
-            </Link>
-          </li>
-        )}
+          {user.userState !== "AUTHENTICATED" && (
+            <li className="nav-item">
+              <Link className="nav-link text-dark" to="/auth">
+              <FaUser  size={12} color="#000000" /> Auth
+              </Link>
+            </li>
+          )}
 
-        <li className="nav-item">
-          <Link className="nav-link" to="/about">
-            Sobre nosotros
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link className="nav-link" to="/contact">
-            Contacto
-          </Link>
-        </li>
+          {user.userState === "AUTHENTICATED" && (
+            <li className="nav-item">
+              <Link className="nav-link text-dark" to="/pedidos">
+                Pedidos
+              </Link>
+            </li>
+          )}
 
-        {user.userState === "AUTHENTICATED" ? (
+          {user.userState === "AUTHENTICATED" ? (
+            <li className="nav-item">
+              <button onClick={handleStartLogout} className="btn btn-danger">
+                Logout
+              </button>
+            </li>
+          ) : (
+            ""
+            // <p>No estás registrado</p>
+          )}
           <li className="nav-item">
-            <button onClick={handleStartLogout} className="btn btn-danger">
-              Logout
-            </button>
-          </li>
-        ) : (
-          <p>No estás registrado</p>
-        )}
-      </ul>
-
-      <div>
-        <ul className="nav justify-content-center">
-          <li className="nav-item">
-            <Link className="nav-link" to="/gatos">
-              Gatos
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/perros">
-              Perros
+            <Link className="nav-link text-dark" to="/carrito">
+              <MdOutlineShoppingCart />
+              <span className="bg-danger text-white rounded-circle">
+                {total}
+              </span>{" "}
+              Mi cesta
             </Link>
           </li>
         </ul>
       </div>
-</div>
+    </nav>
 
-
+      <div className="mt-5 mb-3">
+        <div className="text-center mb-4 mt-5 pt-4">
+          <a href="" onClick={handleReturnToStart}>
+            <FaCat size={30} color="#000000" />
+          </a>
+          <h1 className="text-primary">Prrfection</h1>
+        </div>
+      </div>
 
       <Routes>
         {/* Solo se debe acceder a esta ruta sin no estas registrado ya que es el login */}
-        <Route
-          path="auth"
-          element={
-  
-            <Auth />
-          }
-        />
-
+        <Route path="auth" element={<Auth />} />
 
         {/* Solo se debe acceder a esta ruta sin no estas registrado ya que es el login */}
 
@@ -132,30 +140,24 @@ export const Navbar = () => {
         <Route path="gatos" element={<Gatos />} />
         <Route path="perros" element={<Perros />} />
 
-
-
         <Route path="pedidos" element={<PedidosPage />} />
 
-{/* /checkout */}
-<Route path="/checkout">
-  {/* Ruta para ingresar la dirección */}
-  <Route path="adress" element={<AdressPage />} />
+        {/* /checkout */}
+        <Route path="/checkout">
+          {/* Ruta para ingresar la dirección */}
+          <Route path="adress" element={<AdressPage />} />
 
-  {/* Ruta para seleccionar el método de envío */}
-  <Route path="shiping" element={<ShipingPage />} />
+          {/* Ruta para seleccionar el método de envío */}
+          <Route path="shiping" element={<ShipingPage />} />
 
-  {/* Ruta para seleccionar el método de pago */}
-  <Route path="payment" element={<PaymentPage />} />
-    {/* Ruta para seleccionar el método de pago */}
-    <Route path="error" element={<ErrorPage />} />
+          {/* Ruta para seleccionar el método de pago */}
+          <Route path="payment" element={<PaymentPage />} />
+          {/* Ruta para seleccionar el método de pago */}
+          <Route path="error" element={<ErrorPage />} />
 
-  {/* Ruta para la página de éxito */}
-  <Route path="success" element={<SuccessPage />} />
-</Route>
-
-
-
-        
+          {/* Ruta para la página de éxito */}
+          <Route path="success" element={<SuccessPage />} />
+        </Route>
       </Routes>
     </>
   );

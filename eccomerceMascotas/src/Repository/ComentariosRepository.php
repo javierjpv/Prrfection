@@ -21,20 +21,20 @@ class ComentariosRepository extends ServiceEntityRepository
         parent::__construct($registry, Comentarios::class);
     }
 
-//    /**
-//     * @return Comentarios[] Returns an array of Comentarios objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Comentarios[] Returns an array of Comentarios objects
+     */
+    public function findByProduct($productId): array
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.producto = :val')
+            ->setParameter('val', $productId)
+            ->orderBy('c.id', 'DESC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
 //    public function findOneBySomeField($value): ?Comentarios
 //    {

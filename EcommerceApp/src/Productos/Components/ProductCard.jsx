@@ -1,10 +1,10 @@
-import React from "react";
+import React, { memo } from "react";
 import { useCarritoStore } from "../../Hooks/useCarritoStore";
 
-export const ProductCard = ({ product }) => {
+export const ProductCard =React.memo( ({ product }) => {
   //se extrae la funcion para añadir producttos alñ carrito gracias a redux
   const { addProductCart, carrito } = useCarritoStore();
-
+console.log('se renderiza product card')
   const handleAddCart = () => {
     const existeEnCarrito = carrito.findIndex(
       (producto) => producto.id === product.id
@@ -37,14 +37,15 @@ export const ProductCard = ({ product }) => {
           {/* <img src={`public/images/products/${product.imagens[0].imageName}`} alt={`public/images/products/${product.imagens[0].imageName}`} /> */}
           {/* se accede a product.imagens[0].imageFile  ya que esto nos permite acceder a la foto mediante base64*/}
           <img
-            className="card-img-top"
+            className="card-img-top img-fluid"
             src={`${product.imagens[0].imageFile}`}
             alt={`${product.imagens[0].imageFile}`}
+            style={{ height: '20rem', objectFit: 'contain' }}
           />
           <p className="card-text">{product.descripcion}</p>
           <div className="d-flex justify-content-between align-items-center">
             <p className="mb-0">
-              <strong>Precio: </strong> ${product.precio}
+              <strong>Precio: </strong> €{product.precio}
             </p>
 
             {product.stock <= 0 ? (
@@ -70,4 +71,4 @@ export const ProductCard = ({ product }) => {
       </div>
     </>
   );
-};
+})
