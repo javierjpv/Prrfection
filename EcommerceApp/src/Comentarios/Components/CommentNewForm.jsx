@@ -1,16 +1,15 @@
 import React from "react";
 import { useForm } from "../../Hooks/useForm";
-import { useCommentsStore } from "../../Hooks/useCommentsStore";
+import { useComments } from "../../Hooks/useComments";
 
-export const CommentNewForm = ({ handleCloseComment, productId }) => {
+
+export const CommentNewForm = ({ handleCloseComment, productId,addComment}) => {
   console.log('se renderiza CommentNewForm')
   const { form, content,product, handleOnChange, handleSubmit, handleReset } =
     useForm({ content: "", product: productId });
 
-  const { addComment } = useCommentsStore();
-
   const accionTrasSubmit = () => {
-    console.log(form)
+    console.log('tras submit',form)
     addComment(form);
     handleReset();
   };

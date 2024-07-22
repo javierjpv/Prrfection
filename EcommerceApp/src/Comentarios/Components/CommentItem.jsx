@@ -1,6 +1,7 @@
 import React from "react";
 import { FaUser } from "react-icons/fa";
 export const CommentItem = ({ comment }) => {
+  console.log('se renderiza commentItem')
   return (
     <>
       <div className="card mb-3">

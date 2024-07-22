@@ -17,6 +17,7 @@ export const getCommentsByProduct = async (productId) => {
   try {
       const response = await fetch(url, options);
       const data = await response.json();
+      console.log('respuesta de commentsByProduct',data)
     
       if (response.ok) {
   

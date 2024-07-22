@@ -1,11 +1,9 @@
 import React from 'react'
 import { CommentItem } from './CommentItem'
-import { useCommentsStore } from '../../Hooks/useCommentsStore'
 
-export const CommentList = () => {
+
+export const CommentList =React.memo( ({comments}) => {
   console.log('se renderiza commentList')
-  const {comments } =
-  useCommentsStore();
   return (
     <>
     <p className='text-dark mb-4 mt-5'>Opiniones de usuarios</p>
@@ -19,5 +17,5 @@ export const CommentList = () => {
     
     </>
   )
-}
+})
 

@@ -5,7 +5,7 @@ import authReducer from './auth/authSlice'
 import pedidosReducer from './pedidos/pedidosSlice'
 import checkoutReducer from './checkout/checkoutSlice'
 import filtrosReducer from './filtros/filtrosSlice'
-import commentsReducer from './comments/commentsSlice'
+
 //configuracion necesaria para redux
 export default configureStore({
   reducer: {
@@ -15,7 +15,7 @@ export default configureStore({
     auth:authReducer,
     checkout:checkoutReducer,
     filtros:filtrosReducer,
-    comments:commentsReducer
+   
   }
 })
 
