@@ -45,7 +45,7 @@ class ProductosRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
-    public function findByFilters(array $filters): array
+    public function findByFilters($filters)
     {
         // Verificar si no hay filtros definidos
         if (empty($filters)) {

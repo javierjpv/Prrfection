@@ -6,6 +6,7 @@ import { useProductosStore } from "../Hooks/useProductosStore";
 import { useFiltrossStore } from "../Hooks/useFiltrosStore";
 import { fetchProductosByFiltros } from "../Filtros/helpers/fetchProductosByFiltros";
 import { ComponenteNuevo } from "../Filtros/components/ComponenteNuevo";
+import { useSearchParams } from "react-router-dom";
 
 export const Perros = () => {
   const { products, startSettingProducts } = useProductosStore();
@@ -15,6 +16,7 @@ export const Perros = () => {
   const handleSaveFiltro = (idMascota) => {
     startSavingFiltro({ mascota: idMascota });
   };
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const handleObtenerProductos = async () => {
     try {
@@ -24,6 +26,7 @@ export const Perros = () => {
       }, {});
 
       // Llamar al helper para obtener los productos aplicando los filtros seleccionados
+      setSearchParams(filtrosObjeto)
       const productosFiltrados = await fetchProductosByFiltros(filtrosObjeto);
       startSettingProducts(productosFiltrados);
 

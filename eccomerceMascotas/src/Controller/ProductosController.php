@@ -16,32 +16,18 @@ class ProductosController extends AbstractController
     //y nos devolvera esos objetos en formato json
     //Esta ruta es publica ,por lo cual no hace falta estar autenticado para poder acceder a ella
     #[Route('/productos', name: 'app_productos', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager ): Response // JsonResponse
+    public function index(ProductosRepository $productRepository,EntityManagerInterface $entityManager,Request $request ): Response // JsonResponse
     {
+        $filters=$request->query->all(); //nuevo
         //Mediante doctrine  obtengo todos los opbjetos de la clase Productos
-        $productos=$entityManager->getRepository(Productos::class)->findAll();
-     
-        //TRanformo esos objetos en formato json
-        return $this->json($productos);
-    }
-     
-     
-
-    //Esta ruta recibe filtros(son objetos dentro de un arary) en la peticion y mediante esos filtro
-    //y gracias a doctrine ,se puede llamar al metodo findByFilters (el cual he creado yo en productRepository para añadir una capa de abstraccion)
-    //el metodo findByFilters nos filtrara los objetos de tipo Productos por los filtros que les pasemos
-    #[Route('/filtrado', name: 'app_filtrado', methods: ['POST'])]
-    public function filtrado(ProductosRepository $productRepository, Request $request): Response
-    {
-        //De esta forma extraemos lo que nos envian desde el body de la solicitud
-        $filters = json_decode($request->getContent(), true);
-
-        //Aqui se usa el metodo findByFilters (el cual nos devolvera objetos de tipo Productos),este metodo nos filtrara
-        //los productos segun los filtros que les pasemos
-        $products = $productRepository->findByFilters($filters);
-
+        if (empty($filters)) {
+            $products=$entityManager->getRepository(Productos::class)->findAll();
+        }else{
+            $products = $productRepository->findByFilters($filters);
+        }
         // Devolver los productos como JSON
         return $this->json($products);
     }
+     
     
 }

@@ -42,7 +42,7 @@ export const Navbar = () => {
 
   return (
     <>
-     <nav className="navbar fixed-top navbar-light bg-light pt-0">
+     <nav className="navbar fixed-top navbar-light bg-light pt-0 container rounded">
       <div className="d-flex flex-row justify-content-between align-items-center w-100">
 
         <div className="dropdown text-center">

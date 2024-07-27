@@ -19,7 +19,7 @@ class PedidoController extends AbstractController
     //En caso que todo vaya segun lo previsto, se obtendra el usuario y se buscaran los pedidos de ese usario en concreto
     //devolviendo  en formato json y un codigo 200 los pedidos del usuario que esta realizando la peticion
 
-    #[Route('/api/pedidos', name: 'app_pedidos')]
+    #[Route('/api/pedidos', name: 'app_pedidos', methods: ['GET'])]
     public function index(EntityManagerInterface $entityManager, Security $security, SerializerInterface $serializer): JsonResponse
     {
         // Obtén los datos de los pedidos desde tu base de datos u otro origen

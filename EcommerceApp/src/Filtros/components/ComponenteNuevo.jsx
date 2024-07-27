@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";;
 import { filtrosHelper } from "../helpers/filtrsoHelper";
-import { FilterButton } from "./FilterButton";
 import { NuevoBoton } from "./NuevoBoton";
 
 //Componente que contendra los botones de filrado de un tipo en concreto,se le debe pasar un valor y una clave(es un id)
@@ -54,8 +53,8 @@ useEffect(() => {
           <NuevoBoton key={filtro.id} valor={filtro.id} clave={clave} handleSelectedButton={handleSelectedButton} lastSelectedButton={lastSelectedButton} nombre={filtro.nombre}/>
         ))
       ) : (
-<div class="spinner-border spinner-border-sm" role="status">
-  <span class="sr-only"></span>
+<div className="spinner-border spinner-border-sm" role="status">
+  <span className="sr-only"></span>
 </div>
       )}
     </div>

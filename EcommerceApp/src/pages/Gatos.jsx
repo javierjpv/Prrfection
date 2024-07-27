@@ -1,16 +1,17 @@
 import React from "react";
 import { FiltroComponent } from "../Filtros/components/FiltroComponent";
-import { FilterActions } from "../Filtros/components/FilterActions";
 import { ProductList } from "../Productos/Components/ProductList";
 import { useProductosStore } from "../Hooks/useProductosStore";
 import { fetchProductosByFiltros } from "../Filtros/helpers/fetchProductosByFiltros";
 import { useFiltrossStore } from "../Hooks/useFiltrosStore";
 import { useEffect } from "react";
 import { ComponenteNuevo } from "../Filtros/components/ComponenteNuevo";
+import { useSearchParams } from "react-router-dom";
 
 export const Gatos = () => {
     const {products, startSettingProducts} = useProductosStore();
     const {filtros,startClearingFiltros,startSavingFiltro} = useFiltrossStore();
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const handleSaveFiltro=(idMascota)=>{
       startSavingFiltro({ mascota: idMascota })
@@ -25,6 +26,7 @@ export const Gatos = () => {
     
           // Llamar al helper para obtener los productos aplicando los filtros seleccionados
           const productosFiltrados = await fetchProductosByFiltros(filtrosObjeto);
+          setSearchParams(filtrosObjeto)
           startSettingProducts(productosFiltrados);
     
           // Aquí podrías hacer algo con los productos obtenidos, como mostrarlos en una lista
@@ -42,7 +44,7 @@ export const Gatos = () => {
      
       useEffect(() => {
         handleObtenerProductos();
-        console.log('SE LLAMA A LA API PARA CARGAR LOS PRODUCTOS')
+        console.log('Se añade un nuevo filtro al objeto')
       }, [filtros])
 
 
